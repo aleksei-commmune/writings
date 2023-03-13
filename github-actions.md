@@ -3,6 +3,7 @@
 ## Old workflow
 
 - Linting everything
+- Unit-tests only for everything, no matter what was changed
 - No tests
 
 ## New workflow
