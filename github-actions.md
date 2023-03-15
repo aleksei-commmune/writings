@@ -3,8 +3,7 @@
 ## Prerequisites
 
 Our project is TypeScript monorepo with a file structure like this:
-
-`client`: Next + express based static client \
+`client` Next app + express-based static client \
 `server`: internal API server for the client \
 `public-api`: public API server \
 `shared`: shared code \
@@ -287,7 +286,7 @@ You can enjoy the power of free GitHub Actions access on a personal account, you
 
 We made a lot of work to improve our workflow, but I know that we can do better, especially in the execution time, so here is what I suggest to make in the future:
 
-### Optimize e2e test running time by splitting the entire suite by the execution time of the tests, not randomly splitting them
+### Optimize e2e tests run
 
 Our current tests splitting is very simple, it just uses `find` and `split`:
 
@@ -298,5 +297,8 @@ split --lines=$lines_per_file $input_file "./tmp/spec_" --numeric-suffixes=1
 
 But it's not the best solution since execution time per job may vary significantly. So we can analyze Cypress logs and execution time, and make the test distribution more rational.
 
-- Using some build system to simplify the CI => manage the dependencies correctly
+### Use nx or turborepo
+
+Now our dependency management is kind of chaotic, our packages are split between package.json files and some packages uses global dependencies with the local ones, so you need to install everything just to be sure that you can build and run e.g. only client. Also, it will be nice to have caching of the dependencies in the local environment and between the builds in the CI in a more sophisticated way. We can achieve this by using some of the modern monorepo build systems like nx or Turborepo.
+
 - Optimization of build and run services and containers
